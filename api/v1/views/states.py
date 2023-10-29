@@ -35,7 +35,7 @@ def states(state_id=None):
 
         if not instance:
             return jsonify({"error": "Not a JSON"}), 400
-        if "name" not in instane:
+        if "name" not in instance:
             return jsonify({"error": "Missing name"}), 400
 
         state = State(**instance)
