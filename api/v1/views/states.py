@@ -6,8 +6,8 @@ from models.state import State
 from models import storage
 
 
-@app_views.route("/states", strict_slashes=False)
-@app_views.route("/states/<state_id>", methods=["GET", "DELETE", "POST"])
+@app_views.route("/states", strict_slashes=False, methods=["GET", "DELETE", "POST", "PUT"])
+@app_views.route("/states/<state_id>", methods=["GET", "DELETE", "POST", "PUT"])
 def states(state_id=None):
     """ handles all default RESTFul API actions """
     if request.method == "GET":
