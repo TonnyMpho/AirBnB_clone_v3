@@ -53,7 +53,7 @@ def states(state_id=None):
             if update_data is None:
                 return jsonify({"error": "Not a JSON"}), 400
 
-            for key, value in update_data:
+            for key, value in update_data.items():
                 if key not in ['id', 'created_at', 'updated_at']:
                     setattr(state, key, value)
 
