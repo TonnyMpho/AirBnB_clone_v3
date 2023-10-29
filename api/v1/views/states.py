@@ -42,7 +42,7 @@ def states(state_id=None):
         state.save()
         return jsonify(state.to_dict()), 201
 
-    elif requst.method == "PUT":
+    elif request.method == "PUT":
         if state_id:
             state = storage.get(State, state_id)
 
