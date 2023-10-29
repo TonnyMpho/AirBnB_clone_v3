@@ -5,9 +5,11 @@ from api.v1.views import app_views
 from models.state import State
 from models import storage
 
+methods = ["GET", "DELETE", "POST", "PUT"]
 
-@app_views.route("/states", strict_slashes=False, methods=["GET", "DELETE", "POST", "PUT"])
-@app_views.route("/states/<state_id>", methods=["GET", "DELETE", "POST", "PUT"])
+
+@app_views.route("/states", strict_slashes=False, methods=methods)
+@app_views.route("/states/<state_id>", methods=methods)
 def states(state_id=None):
     """ handles all default RESTFul API actions """
     if request.method == "GET":
@@ -22,7 +24,7 @@ def states(state_id=None):
             return jsonify([state.to_dict() for state in states])
 
     elif request.method == "DELETE":
-        if stae_id:
+        if state_id:
             state = storage.get(State, state_id)
             if not state:
                 abort(404)
