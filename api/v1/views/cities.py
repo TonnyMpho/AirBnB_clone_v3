@@ -6,7 +6,7 @@ from models.state import State
 from models.city import City
 from models import storage
 
-methods = ["GET", "POST", "DELETE"]
+methods = ["GET", "PUT", "DELETE"]
 
 
 @app_views.route(
