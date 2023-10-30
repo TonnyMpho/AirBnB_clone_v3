@@ -11,7 +11,7 @@ methods = ["GET", "POST", "DELETE"]
 
 @app_views.route(
         "/states/<state_id>/cities", strict_slashes=False, methods=["GET"])
-def states(state_id=None):
+def state_cities(state_id=None):
     """ handles all default RESTFul API actions """
     if state_id:
         state = storage.get(State, state_id)
@@ -70,7 +70,7 @@ def cities(city_id):
             if not city:
                 abort(404)
             if not update_data:
-                return jsonify("error": "Not a JSON"), 400
+                return jsonify({"error": "Not a JSON"}), 400
 
             for key, value in update_data.items():
                 if key not in ["id", "state_id", "created_at", "updated_at"]:
