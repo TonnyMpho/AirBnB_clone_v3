@@ -31,9 +31,9 @@ def create_city(state_id):
 
     instance_data = request.get_json()
     if not instance_data:
-        return jsonify({"error": "Not a JSON"}, 400)
+        return jsonify({"error": "Not a JSON"}), 400
     if "name" not in instance_data:
-        return jsonify({"error": "Missing name"}, 400)
+        return jsonify({"error": "Missing name"}), 400
 
     instance_data["state_id"] = state_id
     city = City(**instance_data)
