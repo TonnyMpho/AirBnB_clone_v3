@@ -10,7 +10,7 @@ methods = ["GET", "DELETE", "POST", "PUT"]
 
 @app_views.route("/users", strict_slashes=False, methods=methods)
 @app_views.route("/users/<user_id>", methods=methods)
-def states(state_id=None):
+def users(user_id=None):
     """ handles all default RESTFul API actions """
     if request.method == "GET":
         if user_id:
@@ -37,8 +37,10 @@ def states(state_id=None):
 
         if not instance:
             return jsonify({"error": "Not a JSON"}), 400
-        if "name" not in instance:
-            return jsonify({"error": "Missing name"}), 400
+        if "email" not in instance:
+            return jsonify({"error": "Missing email"}), 400
+        if "password" not in instance:
+            return jsonify({"error": "Missing password"}), 400
 
         user = User(**instance)
         user.save()
@@ -56,7 +58,7 @@ def states(state_id=None):
                 return jsonify({"error": "Not a JSON"}), 400
 
             for key, value in update_data.items():
-                if key not in ['id', 'created_at', 'updated_at']:
+                if key not in ['id', 'email', 'created_at', 'updated_at']:
                     setattr(user, key, value)
 
             user.save()
