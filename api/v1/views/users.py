@@ -2,7 +2,7 @@
 """ view for State objects that handles all default RESTFul API actions """
 from flask import request, jsonify, abort
 from api.v1.views import app_views
-from models.users import User
+from models.user import User
 from models import storage
 
 methods = ["GET", "DELETE", "POST", "PUT"]
