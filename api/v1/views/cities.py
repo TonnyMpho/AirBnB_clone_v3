@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" view for State objects that handles all default RESTFul API actions """
+""" view for City objects that handles all default RESTFul API actions """
 from flask import request, jsonify, abort
 from api.v1.views import app_views
 from models.state import State
@@ -43,7 +43,7 @@ def create_city(state_id):
 
 @app_views.route("/cities/<city_id>", strict_slashes=False, methods=methods)
 def cities(city_id):
-    """ City objects that handles GET actions """
+    """ City method that handles GET, PUT, DELETE actions """
     if request.method == "GET":
         if city_id:
             city = storage.get(City, city_id)
