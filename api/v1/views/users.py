@@ -20,8 +20,8 @@ def users(user_id=None):
                 abort(404)
             return jsonify(user.to_dict())
         else:
-            users = storage.all(user).values()
-            return jsonify([user.to_dict() for users in users])
+            users = storage.all(User).values()
+            return jsonify([user.to_dict() for user in users])
 
     elif request.method == "DELETE":
         if user_id:
