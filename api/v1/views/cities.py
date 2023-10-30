@@ -65,7 +65,7 @@ def cities(city_id):
     if request.method == "PUT":
         if city_id:
             city = storage.get(City, city_id)
-            update_data = request_json()
+            update_data = request.get_json()
 
             if not city:
                 abort(404)
