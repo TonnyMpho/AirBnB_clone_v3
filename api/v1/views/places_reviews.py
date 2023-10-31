@@ -46,9 +46,9 @@ def create_reviews(place_id):
         return jsonify({"error": "Missing text"}), 400
 
     instance_data["place_id"] = place_id
-    place = Place(**instance_data)
-    place.save()
-    return jsonify(place.to_dict()), 201
+    review = Review(**instance_data)
+    review.save()
+    return jsonify(review.to_dict()), 201
 
 
 @app_views.route("/reviews/<review_id>", strict_slashes=False, methods=methods)
