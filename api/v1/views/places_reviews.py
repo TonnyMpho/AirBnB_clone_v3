@@ -40,8 +40,6 @@ def create_reviews(place_id):
     if not user:
         abort(404)
 
-    if "name" not in instance_data:
-        return jsonify({"error": "Missing name"}), 400
     if "text" not in instance_data:
         return jsonify({"error": "Missing text"}), 400
 
@@ -82,8 +80,9 @@ def Reviews(review_id):
             if not update_data:
                 return jsonify({"error": "Not a JSON"}), 400
 
+            keys = ["id", "user_id", 'place_id', "created_at", "updated_at"]
             for key, value in update_data.items():
-                if key not in ["id", "city_id", "created_at", "updated_at"]:
+                if key not in keys:
                     setattr(review, key, value)
             review.save()
             return jsonify(review.to_dict()), 200
