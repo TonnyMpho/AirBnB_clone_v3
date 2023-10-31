@@ -10,14 +10,14 @@ methods = ["GET", "PUT", "DELETE"]
 
 
 @app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=["GET"])
-def city_places(city_id=None):
+def city_places(city_id):
     """ handles all default RESTFul API actions """
     if city_id:
         city = storage.get(City, city_id)
 
         if not city:
             abort(404)
-        return jsonify([place.to_dict() for place in city.placies])
+        return jsonify([place.to_dict() for place in city.places])
 
 
 @app_views.route(
@@ -42,10 +42,10 @@ def create_place(city_id):
         return jsonify({"error": "Missing name"}), 400
 
 
-    instance_data["state_id"] = state_id
-    city = City(**instance_data)
-    city.save()
-    return jsonify(city.to_dict()), 201
+    instance_data["city_id"] = city_id
+    place = Place(**instance_data)
+    place.save()
+    return jsonify(place.to_dict()), 201
 
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=methods)
@@ -81,6 +81,6 @@ def places(place_id):
 
             for key, value in update_data.items():
                 if key not in ["id", "city_id", "created_at", "updated_at"]:
-                    setattr(city, key, value)
+                    setattr(place, key, value)
             place.save()
             return jsonify(place.to_dict()), 200
