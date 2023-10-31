@@ -4,12 +4,14 @@ from flask import request, jsonify, abort
 from api.v1.views import app_views
 from models.place import Place
 from models.city import City
+from models.user import User
 from models import storage
 
 methods = ["GET", "PUT", "DELETE"]
 
 
-@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=["GET"])
+@app_views.route(
+        "/cities/<city_id>/places", strict_slashes=False, methods=["GET"])
 def city_places(city_id):
     """ handles all default RESTFul API actions """
     if city_id:
@@ -34,13 +36,12 @@ def create_place(city_id):
     if "user_id" not in instance_data:
         return jsonify({"error": "Missing user_id"}), 400
 
-    user = storage.get('User', instance_data.get('user_id'))
+    user = storage.get(User, instance_data.get('user_id'))
     if not user:
         abort(404)
 
     if "name" not in instance_data:
         return jsonify({"error": "Missing name"}), 400
-
 
     instance_data["city_id"] = city_id
     place = Place(**instance_data)
