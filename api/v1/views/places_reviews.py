@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" view for Places_reviews objects that handles all default RESTFul API actions """
+""" view for Places_reviews objects that handles all RESTFul API actions """
 from flask import request, jsonify, abort
 from api.v1.views import app_views
 from models.place import Place
@@ -45,7 +45,7 @@ def create_reviews(place_id):
     if "text" not in instance_data:
         return jsonify({"error": "Missing text"}), 400
 
-    instance_data["place_id"] = city_id
+    instance_data["place_id"] = place_id
     place = Place(**instance_data)
     place.save()
     return jsonify(place.to_dict()), 201
